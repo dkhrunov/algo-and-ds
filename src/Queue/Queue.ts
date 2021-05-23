@@ -58,6 +58,14 @@ export class Queue<T> {
 		return current.value;
 	}
 
+	public peek(): T | null {
+		if (this.head === null) {
+			return null;
+		}
+
+		return this.head;
+	}
+
 	public clear(): void {
 		this._head = null;
 		this._tail = null;
