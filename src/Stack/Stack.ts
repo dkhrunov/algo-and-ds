@@ -1,14 +1,17 @@
 export class Stack<T> {
 	private readonly items: T[];
 
+	// O(1)
 	public get value(): T[] {
 		return this.items;
 	}
 
+	// O(1)
 	public get isEmpty(): boolean {
 		return this.items.length === 0;
 	}
 
+	// O(1)
 	public get length(): number {
 		return this.items.length;
 	}
@@ -17,10 +20,12 @@ export class Stack<T> {
 		this.items = items;
 	}
 
+	// O(1)
 	public push(item: T): void {
 		this.items.push(item);
 	}
 
+	// O(1)
 	public pop(): T | null {
 		if (this.isEmpty) {
 			return null;
@@ -29,6 +34,7 @@ export class Stack<T> {
 		return this.items.pop() as T;
 	}
 
+	// O(1)
 	public peek(): T | null {
 		if (this.isEmpty) {
 			return null;
@@ -37,6 +43,7 @@ export class Stack<T> {
 		return this.items[this.items.length - 1];
 	}
 
+	// O(1)
 	public clear(): void {
 		this.items.length = 0;
 	}

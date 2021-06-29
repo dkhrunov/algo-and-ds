@@ -1,17 +1,17 @@
-import { LinkedListNode } from "./LinkedListNode/LinkedListNode";
+import { DoublyLinkedListNode } from "./DoublyLinkedListNode/DoublyLinkedListNode";
 
-export class LinkedList<T> {
-	private _head: LinkedListNode<T> | null;
-	private _tail: LinkedListNode<T> | null;
+export class DoublyLinkedList<T> {
+	private _head: DoublyLinkedListNode<T> | null;
+	private _tail: DoublyLinkedListNode<T> | null;
 	private _length: number;
 
 	// O(1)
-	public get head(): LinkedListNode<T> | null {
+	public get head(): DoublyLinkedListNode<T> | null {
 		return this._head;
 	}
 
 	// O(1)
-	public get tail(): LinkedListNode<T> | null {
+	public get tail(): DoublyLinkedListNode<T> | null {
 		return this._tail;
 	}
 
@@ -35,24 +35,13 @@ export class LinkedList<T> {
 		}
 	}
 
-	// O(n)
-	public getByIndex(index: number): T | null {
-		if (index < 0 || index >= this.length) {
-			return null;
-		}
-
-		let current = this.head;
-
-		for (let i = 0; i < index; i++) {
-			current = current!.next;
-		}
-
-		return current!.value;
-	}
-
 	// O(1)
-	public prepend(value: T): LinkedList<T> {
-		const node = new LinkedListNode(value, this.head);
+	public prepend(value: T): DoublyLinkedList<T> {
+		const node = new DoublyLinkedListNode(value, this.head, null);
+
+		if (this.head) {
+			this.head.previous = node;
+		}
 
 		this._head = node;
 
@@ -65,8 +54,8 @@ export class LinkedList<T> {
 	}
 
 	// O(1)
-	public append(value: T): LinkedList<T> {
-		const node = new LinkedListNode(value);
+	public append(value: T): DoublyLinkedList<T> {
+		const node = new DoublyLinkedListNode(value);
 
 		if (!this.head) {
 			this._head = node;
@@ -77,6 +66,7 @@ export class LinkedList<T> {
 		}
 
 		this.tail!.next = node;
+		node.previous = this.tail;
 		this._tail = node;
 
 		this.incrementLength();
@@ -84,58 +74,47 @@ export class LinkedList<T> {
 	}
 
 	// O(n)
-	public appendByIndex(index: number, value: T): LinkedList<T> {
-		if (index < 0 || index >= this.length) {
-			return this;
-		}
-
-		if (index === 0) {
-			return this.prepend(value);
-		}
-
-		if (index === this.length - 1) {
-			return this.append(value);
-		}
-
-		const found = this.find((elem, i) => i === index - 1);
-
-		const node = new LinkedListNode(value, found!.next);
-		found!.next = node;
-		this.incrementLength();
-
-		return this;
-	}
-
-	// O(n)
-	public delete(value: T): LinkedList<T> {
+	public delete(value: T): DoublyLinkedList<T> {
 		if (!this.head) {
 			return this;
 		}
 
-		while (this.head && this.head.value === value) {
-			this._head = this.head.next;
-			this.decrementLength();
-		}
+		let currentNode: DoublyLinkedListNode<T> | null= this.head;
 
-		let current = this.head;
-		while (current.next) {
-			if (current.next.value === value) {
-				current.next = current.next.next;
+		while (currentNode) {
+			if (currentNode.value === value) {
+				if (currentNode === this.head) {
+					this._head = currentNode.next;
+
+					if (this.head) {
+						this.head.previous = null;
+					}
+
+					if (currentNode === this.tail) {
+						this._tail = null;
+					}
+				} else if (currentNode === this.tail) {
+					this._tail = currentNode.previous;
+					this.tail.next = null;
+				} else {
+					const previousNode = currentNode.previous;
+					const nextNode = currentNode.next;
+
+					previousNode!.next = nextNode;
+					nextNode!.previous = previousNode;
+				}
+
 				this.decrementLength();
-			} else {
-				current = current.next;
 			}
-		}
 
-		if (this.tail && this.tail.value === value) {
-			this._tail = current;
+			currentNode = currentNode.next;
 		}
 
 		return this;
 	}
 
 	// O(n)
-	public deleteByIndex(index: number): LinkedList<T> {
+	public deleteByIndex(index: number): DoublyLinkedList<T> {
 		if (index < 0 || index >= this.length) {
 			return this;
 		}
@@ -147,7 +126,7 @@ export class LinkedList<T> {
 		}
 
 		let current = this.head;
-		let prev: LinkedListNode<T> | null = null;
+		let prev: DoublyLinkedListNode<T> | null = null;
 		let i = 0;
 
 		while (i < index) {
@@ -177,13 +156,13 @@ export class LinkedList<T> {
 
 	// O(n)
 	public find(
-		predicate: (node: LinkedListNode<T>, index?: number) => boolean
-	): LinkedListNode<T> | null {
+		predicate: (node: DoublyLinkedListNode<T>, index?: number) => boolean
+	): DoublyLinkedListNode<T> | null {
 		if (!this.head) {
 			return null;
 		}
 
-		let current: LinkedListNode<T> | null = this.head;
+		let current: DoublyLinkedListNode<T> | null = this.head;
 		let index = 0;
 
 		while (current) {
@@ -200,13 +179,13 @@ export class LinkedList<T> {
 
 	// O(n)
 	public findIndex(
-		predicate: (node: LinkedListNode<T>) => boolean
+		predicate: (node: DoublyLinkedListNode<T>) => boolean
 	): number {
 		if (!this.head) {
 			return -1;
 		}
 
-		let current: LinkedListNode<T> | null = this.head;
+		let current: DoublyLinkedListNode<T> | null = this.head;
 		let index = 0;
 
 		while (current) {
@@ -231,7 +210,7 @@ export class LinkedList<T> {
 
 	// O(n)
 	public traverse(
-		callback: (node: LinkedListNode<T>, index?: number) => void
+		callback: (node: DoublyLinkedListNode<T>, index?: number) => void
 	): void {
 		let current = this.head;
 		let index = 0;
@@ -244,7 +223,7 @@ export class LinkedList<T> {
 	}
 
 	// O(n)
-	public reverse(): LinkedList<T> {
+	public reverse(): DoublyLinkedList<T> {
 		let current = this.head;
 		let prev = null;
 		let next = null;
