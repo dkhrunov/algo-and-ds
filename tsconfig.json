@@ -6,8 +6,8 @@
 	  "outDir": "dist",
 	  "sourceMap": true,
 	  "lib": [
-		"es6",
-		"dom"
+      "es6",
+      "dom"
 	  ],
 	  "rootDir": "src",
 	}

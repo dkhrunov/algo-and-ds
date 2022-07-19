@@ -6,12 +6,7 @@ export class Queue<T> {
 	private _length: number;
 
 	// O(1)
-	public get head(): T | null {
-		return this._head === null ? null : this._head.value;
-	}
-
-	// O(1)
-	public get tail(): T | null {
+	public get last(): T | null {
 		return this._tail === null ? null : this._tail.value;
 	}
 
@@ -25,21 +20,17 @@ export class Queue<T> {
 		return this.length === 0;
 	}
 
-	constructor(data?: T[]) {
+	constructor() {
 		this._head = null;
 		this._tail = null;
 		this._length = 0;
-
-		if (data !== undefined) {
-			this.enqueueArray(data);
-		}
 	}
 
 	// O(1)
 	public enqueue(item: T): void {
 		const node = new Node<T>(item);
 
-		if (this.head === null) {
+		if ((this._head?.value ?? null) === null) {
 			this._head = node;
 			this._tail = node;
 		} else {
@@ -66,11 +57,7 @@ export class Queue<T> {
 
 	// O(1)
 	public peek(): T | null {
-		if (this.head === null) {
-			return null;
-		}
-
-		return this.head;
+		return this._head === null ? null : this._head.value;
 	}
 
 	// O(1)
@@ -78,10 +65,5 @@ export class Queue<T> {
 		this._head = null;
 		this._tail = null;
 		this._length = 0;
-	}
-
-	// O(n)
-	private enqueueArray(items: T[]): void {
-		items.forEach((item) => this.enqueue(item));
 	}
 }

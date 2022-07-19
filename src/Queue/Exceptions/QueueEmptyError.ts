@@ -1,0 +1,1 @@
+export const QUEUE_EMPTY_ERROR = new Error('Queue is Empty');
