@@ -34,6 +34,11 @@ export class CircularQueue<T> {
   }
 
   // O(1)
+  public peek(): T | null {
+    return this._queue[this._front] ?? null;
+  }
+
+  // O(1)
   public enqueue(element: T): void {
     if (this.isFull) {
       throw QUEUE_FULL_ERROR;
@@ -75,10 +80,5 @@ export class CircularQueue<T> {
     }
 
     return element;
-  }
-
-  // O(1)
-  public peek(): T | null {
-    return this._queue[this._front] ?? null;
   }
 }

@@ -1,12 +1,11 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
-import { QUEUE_FULL_ERROR } from "../Exceptions/QueueFullError";
-import { CircularQueue } from "./CircularQueue";
+import { CircularQueueBasedOnLinkedList } from "./CircularQueueBasedOnLinkedList";
 
-describe(CircularQueue, () => {
-  let queue: CircularQueue<number>;
+describe(CircularQueueBasedOnLinkedList, () => {
+  let queue: CircularQueueBasedOnLinkedList<number>;
   
   beforeEach(() => {
-    queue = new CircularQueue<number>(3);
+    queue = new CircularQueueBasedOnLinkedList<number>();
   });
 
   describe("#constructor", () => {
@@ -14,7 +13,6 @@ describe(CircularQueue, () => {
       expect(queue.peek()).toBeNull();
       expect(queue.last).toBeNull();
       expect(queue.isEmpty).toBeTruthy();
-      expect(queue.isFull).toBeFalsy();
     });
   });
 
@@ -25,15 +23,6 @@ describe(CircularQueue, () => {
       expect(queue.peek()).toBe(1);
       expect(queue.last).toBe(1);
       expect(queue.isEmpty).toBeFalsy();
-      expect(queue.isFull).toBeFalsy();
-    });
-
-    it("should fill a queue of size 3 elements", () => {
-      queue.enqueue(1);
-      queue.enqueue(2);
-      queue.enqueue(3);
-
-      expect(queue.isFull).toBeTruthy();
     });
 
     it("should insert the element into the vacated space at the head of the queue", () => {
@@ -45,14 +34,6 @@ describe(CircularQueue, () => {
   
       expect(queue.peek()).toBe(2);
       expect(queue.last).toBe(4);
-    });
-
-    it("should throw an error when trying to insert more elements than the queue size", () => {
-      queue.enqueue(1);
-      queue.enqueue(2);
-      queue.enqueue(3);
-
-      expect(() => queue.enqueue(4)).toThrowError(QUEUE_FULL_ERROR);
     });
   });
 
@@ -66,7 +47,6 @@ describe(CircularQueue, () => {
       expect(queue.peek()).toBeNull();
       expect(queue.last).toBeNull();
       expect(queue.isEmpty).toBeTruthy();
-      expect(queue.isFull).toBeFalsy();
     });
 
     it("should set the front pointer to index 0 when removing an element from the end of the queue", () => {
@@ -77,7 +57,6 @@ describe(CircularQueue, () => {
       expect(queue.dequeue()).toBe(1);
 
       queue.enqueue(4);
-      expect(queue.isFull).toBeTruthy();
 
       expect(queue.dequeue()).toBe(2);
       expect(queue.dequeue()).toBe(3);
