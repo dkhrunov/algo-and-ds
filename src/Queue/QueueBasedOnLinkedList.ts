@@ -1,21 +1,19 @@
-import { LinkedList } from "../LinkedList/LinkedList";
+import { Node } from "../Node/Node";
+import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
 
-export class Queue<T> {
-	private linkedList = new LinkedList<T>();
-
-	// O(1)
-	public get head(): T | null {
-		return this.linkedList.head ? this.linkedList.head.value : null;
-	}
+export class QueueBasedOnLinkedList<T> {
+	private _front: Node<T> | null;
+	private _rear: Node<T> | null;
+	private _length: number;
 
 	// O(1)
-	public get tail(): T | null {
-		return this.linkedList.tail ? this.linkedList.tail.value : null;
+	public get last(): T | null {
+		return this._rear === null ? null : this._rear.value;
 	}
 
 	// O(1)
 	public get length(): number {
-		return this.linkedList.length;
+		return this._length;
 	}
 
 	// O(1)
@@ -23,45 +21,56 @@ export class Queue<T> {
 		return this.length === 0;
 	}
 
-	constructor(data?: T[]) {
-		if (data !== undefined) {
-			this.enqueueArray(data);
-		}
+	constructor() {
+		this._front = null;
+		this._rear = null;
+		this._length = 0;
 	}
 
 	// O(1)
 	public enqueue(item: T): void {
-		this.linkedList.append(item);
+		const node = new Node<T>(item);
+
+		if (this.isEmpty) {
+			this._front = node;
+		} else {
+			this._rear!.next = node;
+		}
+			
+    this._rear = node;
+		this._length++;
 	}
 
 	// O(1)
-	public dequeue(): T | null {
-		if (this.head === null) {
-			return null;
-		}
+	public dequeue(): T {
+		if (this.isEmpty) {
+      throw QUEUE_EMPTY_ERROR;
+    }
 
-		const item = this.linkedList.head!.value;
-		this.linkedList.deleteByIndex(0);
+		const value = this._front!.value;
 
-		return item;
+    if (this._front === this._rear) {
+      this._front = null;
+      this._rear = null;
+    }
+    else {
+      this._front = this._front!.next;
+    }
+
+		this._length--;
+
+		return value;
 	}
 
 	// O(1)
 	public peek(): T | null {
-		if (this.head === null) {
-			return null;
-		}
-
-		return this.linkedList.head!.value;
+		return this._front === null ? null : this._front.value;
 	}
 
 	// O(1)
 	public clear(): void {
-		this.linkedList.clear();
-	}
-
-	// O(n)
-	private enqueueArray(items: T[]): void {
-		items.forEach((item) => this.enqueue(item));
+		this._front = null;
+		this._rear = null;
+		this._length = 0;
 	}
 }
