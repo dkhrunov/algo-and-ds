@@ -1,3 +1,4 @@
+import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
 import { Queue } from "./Queue"
 
 describe("#constructor", () => {
@@ -38,11 +39,10 @@ describe("#enqueue", () => {
 
 describe("#dequeue", () => {
 	describe("when the queue is empty", () => {
-		it("it returns null", () => {
+		it("should throw an error", () => {
 			const queue = new Queue<number>();
-			const item = queue.dequeue();
 
-			expect(item).toBeNull();
+      expect(() => queue.dequeue()).toThrowError(QUEUE_EMPTY_ERROR);
 			expect(queue.length).toBe(0);
 		})
 	})
@@ -58,6 +58,20 @@ describe("#dequeue", () => {
 
 			expect(item).toBe(1);
 			expect(queue.length).toBe(3);
+		})
+	})
+
+  describe("when the front equal to rear", () => {
+		it("it reset the queue", () => {
+			const queue = new Queue<number>();
+			queue.enqueue(1);
+			queue.enqueue(2);
+
+			expect(queue.dequeue()).toBe(1);
+			expect(queue.dequeue()).toBe(2);
+			expect(queue.length).toBe(0);
+			expect(queue.last).toBeNull();
+			expect(queue.isEmpty).toBeTruthy();
 		})
 	})
 })

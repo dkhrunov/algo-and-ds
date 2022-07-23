@@ -1,17 +1,17 @@
-import { LinkedListNode } from "./LinkedListNode/LinkedListNode";
+import { Node } from "../Node/Node";
 
 export class LinkedList<T> {
-	private _head: LinkedListNode<T> | null;
-	private _tail: LinkedListNode<T> | null;
+	private _head: Node<T> | null;
+	private _tail: Node<T> | null;
 	private _length: number;
 
 	// O(1)
-	public get head(): LinkedListNode<T> | null {
+	public get head(): Node<T> | null {
 		return this._head;
 	}
 
 	// O(1)
-	public get tail(): LinkedListNode<T> | null {
+	public get tail(): Node<T> | null {
 		return this._tail;
 	}
 
@@ -52,7 +52,7 @@ export class LinkedList<T> {
 
 	// O(1)
 	public prepend(value: T): LinkedList<T> {
-		const node = new LinkedListNode(value, this.head);
+		const node = new Node(value, this.head);
 
 		this._head = node;
 
@@ -66,7 +66,7 @@ export class LinkedList<T> {
 
 	// O(1)
 	public append(value: T): LinkedList<T> {
-		const node = new LinkedListNode(value);
+		const node = new Node(value);
 
 		if (!this.head) {
 			this._head = node;
@@ -99,7 +99,7 @@ export class LinkedList<T> {
 
 		const found = this.find((elem, i) => i === index - 1);
 
-		const node = new LinkedListNode(value, found!.next);
+		const node = new Node(value, found!.next);
 		found!.next = node;
 		this.incrementLength();
 
@@ -147,7 +147,7 @@ export class LinkedList<T> {
 		}
 
 		let current = this.head;
-		let prev: LinkedListNode<T> | null = null;
+		let prev: Node<T> | null = null;
 		let i = 0;
 
 		while (i < index) {
@@ -177,13 +177,13 @@ export class LinkedList<T> {
 
 	// O(n)
 	public find(
-		predicate: (node: LinkedListNode<T>, index?: number) => boolean
-	): LinkedListNode<T> | null {
+		predicate: (node: Node<T>, index?: number) => boolean
+	): Node<T> | null {
 		if (!this.head) {
 			return null;
 		}
 
-		let current: LinkedListNode<T> | null = this.head;
+		let current: Node<T> | null = this.head;
 		let index = 0;
 
 		while (current) {
@@ -200,13 +200,13 @@ export class LinkedList<T> {
 
 	// O(n)
 	public findIndex(
-		predicate: (node: LinkedListNode<T>) => boolean
+		predicate: (node: Node<T>) => boolean
 	): number {
 		if (!this.head) {
 			return -1;
 		}
 
-		let current: LinkedListNode<T> | null = this.head;
+		let current: Node<T> | null = this.head;
 		let index = 0;
 
 		while (current) {
@@ -231,7 +231,7 @@ export class LinkedList<T> {
 
 	// O(n)
 	public traverse(
-		callback: (node: LinkedListNode<T>, index?: number) => void
+		callback: (node: Node<T>, index?: number) => void
 	): void {
 		let current = this.head;
 		let index = 0;

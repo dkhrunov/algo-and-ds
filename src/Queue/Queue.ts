@@ -1,13 +1,14 @@
 import { Node } from "../Node/Node";
+import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
 
 export class Queue<T> {
-	private _head: Node<T> | null;
-	private _tail: Node<T> | null;
+	private _front: Node<T> | null;
+	private _rear: Node<T> | null;
 	private _length: number;
 
 	// O(1)
 	public get last(): T | null {
-		return this._tail === null ? null : this._tail.value;
+		return this._rear === null ? null : this._rear.value;
 	}
 
 	// O(1)
@@ -21,8 +22,8 @@ export class Queue<T> {
 	}
 
 	constructor() {
-		this._head = null;
-		this._tail = null;
+		this._front = null;
+		this._rear = null;
 		this._length = 0;
 	}
 
@@ -30,40 +31,47 @@ export class Queue<T> {
 	public enqueue(item: T): void {
 		const node = new Node<T>(item);
 
-		if ((this._head?.value ?? null) === null) {
-			this._head = node;
-			this._tail = node;
+		if (this.isEmpty) {
+			this._front = node;
 		} else {
-			this._tail!.next = node;
-			this._tail = node;
+			this._rear!.next = node;
 		}
-
+			
+    this._rear = node;
 		this._length++;
 	}
 
+  // TODO tests
 	// O(1)
-	public dequeue(): T | null {
-		if (!this._head) {
-			return null;
-		}
+	public dequeue(): T {
+		if (this.isEmpty) {
+      throw QUEUE_EMPTY_ERROR;
+    }
 
-		const current = this._head;
+		const value = this._front!.value;
 
-		this._head = this._head.next;
+    if (this._front === this._rear) {
+      this._front = null;
+      this._rear = null;
+    }
+    else {
+      this._front = this._front!.next;
+    }
+
 		this._length--;
 
-		return current.value;
+		return value;
 	}
 
 	// O(1)
 	public peek(): T | null {
-		return this._head === null ? null : this._head.value;
+		return this._front === null ? null : this._front.value;
 	}
 
 	// O(1)
 	public clear(): void {
-		this._head = null;
-		this._tail = null;
+		this._front = null;
+		this._rear = null;
 		this._length = 0;
 	}
 }

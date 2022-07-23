@@ -1,5 +1,5 @@
+import { Node } from "../Node/Node";
 import { LinkedList } from "./LinkedList";
-import { LinkedListNode } from "./LinkedListNode/LinkedListNode";
 
 describe("#constructor", () => {
 	describe("without values", () => {
@@ -265,7 +265,7 @@ describe("#find", () => {
 		describe("with an empty linked list", () => {
 			it("it should be called 0 times", () => {
 				const list = new LinkedList<number>();
-				const predicateMock = jest.fn((node: LinkedListNode<number>, index?: number) => node.value === 5);
+				const predicateMock = jest.fn((node: Node<number>, index?: number) => node.value === 5);
 				list.find(predicateMock);
 
 				expect(predicateMock).toHaveBeenCalledTimes(0);
@@ -276,7 +276,7 @@ describe("#find", () => {
 			it("it should be called as many times as there are elements in the linked list", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>, index?: number) => node.value === 33);
+				const predicateMock = jest.fn((node: Node<number>, index?: number) => node.value === 33);
 				list.find(predicateMock);
 
 				for (let i = 0; i < list.length; i++) {
@@ -292,7 +292,7 @@ describe("#find", () => {
 			it("it should be called until a matching element is found", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>, index?: number) => node.value === 3);
+				const predicateMock = jest.fn((node: Node<number>, index?: number) => node.value === 3);
 				list.find(predicateMock);
 
 				for (let i = 0; i < 3; i++) {
@@ -308,7 +308,7 @@ describe("#find", () => {
 			it("it should be called as many times as there are elements in the linked list", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>, index?: number) => index === -1);
+				const predicateMock = jest.fn((node: Node<number>, index?: number) => index === -1);
 				list.find(predicateMock);
 
 				for (let i = 0; i < list.length; i++) {
@@ -324,7 +324,7 @@ describe("#find", () => {
 			it("it should be called as many times as there are elements in the linked list", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>, index?: number) => index === 9);
+				const predicateMock = jest.fn((node: Node<number>, index?: number) => index === 9);
 				list.find(predicateMock);
 
 				for (let i = 0; i < list.length; i++) {
@@ -340,7 +340,7 @@ describe("#find", () => {
 			it("it find the node at that index", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>, index?: number) => index === 2);
+				const predicateMock = jest.fn((node: Node<number>, index?: number) => index === 2);
 				list.find(predicateMock);
 
 				for (let i = 0; i < 3; i++) {
@@ -413,7 +413,7 @@ describe("#findIndex", () => {
 		describe("with an empty linked list", () => {
 			it("it should be called 0 times", () => {
 				const list = new LinkedList<number>();
-				const predicateMock = jest.fn((node: LinkedListNode<number>) => node.value === 5);
+				const predicateMock = jest.fn((node: Node<number>) => node.value === 5);
 				list.findIndex(predicateMock);
 
 				expect(predicateMock).toHaveBeenCalledTimes(0);
@@ -424,7 +424,7 @@ describe("#findIndex", () => {
 			it("it should be called as many times as there are elements in the linked list", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>) => node.value === 33);
+				const predicateMock = jest.fn((node: Node<number>) => node.value === 33);
 				list.findIndex(predicateMock);
 
 				for (let i = 0; i < list.length; i++) {
@@ -439,7 +439,7 @@ describe("#findIndex", () => {
 			it("it should be called until a matching element is found", () => {
 				const values = [1, 2, 3, 4];
 				const list = new LinkedList<number>(values);
-				const predicateMock = jest.fn((node: LinkedListNode<number>) => node.value === 3);
+				const predicateMock = jest.fn((node: Node<number>) => node.value === 3);
 				list.findIndex(predicateMock);
 
 				for (let i = 0; i < 3; i++) {
@@ -502,7 +502,7 @@ describe("#traverse", () => {
 	describe("with an empty linked list", () => {
 		it("it should be called 0 times", () => {
 			const list = new LinkedList<number>();
-			const callbackMock = jest.fn((node: LinkedListNode<number>, index?: number) => { });
+			const callbackMock = jest.fn((node: Node<number>, index?: number) => { });
 			list.traverse(callbackMock);
 
 			expect(callbackMock).toHaveBeenCalledTimes(0);
@@ -513,7 +513,7 @@ describe("#traverse", () => {
 		it("it should be called for each item", () => {
 			const values = [1, 2, 3, 4];
 			const list = new LinkedList<number>(values);
-			const callbackMock = jest.fn((node: LinkedListNode<number>, index?: number) => { });
+			const callbackMock = jest.fn((node: Node<number>, index?: number) => { });
 			list.traverse(callbackMock);
 
 			for (let i = 0; i < list.length; i++) {
