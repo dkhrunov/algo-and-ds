@@ -106,6 +106,25 @@ export class LinkedList<T> {
 		return this;
 	}
 
+  // O(n)
+  public deleteHead(): T | null {
+    if (!this._head) return null;
+
+    const head = this._head;
+
+    if (this._head.next) {
+      this._head = this._head.next;
+    } else {
+      this._head = null;
+      this._tail = null;
+    }
+
+    this._length--;
+
+    return head.value;
+
+  }
+
 	// O(n)
 	public delete(value: T): LinkedList<T> {
 		if (!this.head) {

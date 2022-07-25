@@ -5,7 +5,9 @@ export class PriorityQueueBasedOnArray<T> {
   
   private _size = -1;
 
-  public get isEmpty(): boolean { return this._size < 0}
+  public get isEmpty(): boolean {
+    return this._size < 0;
+  }
 
   // O(1)
   public enqueue(item: T, priority: number): void {

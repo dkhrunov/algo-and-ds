@@ -14,6 +14,34 @@ describe(PriorityQueueBasedOnArray, () => {
     });
   });
 
+  describe("#peek", () => {
+    it("should return an element from the top of the queue", () => {
+      queue.enqueue(3, 1000);
+
+      expect(queue.peek()).toBe(3);
+      expect(queue.peek()).toBe(3);
+      expect(queue.peek()).toBe(3);
+      expect(queue.isEmpty).toBeFalsy();
+    });
+
+    it("should return the element with highest priority", () => {
+      queue.enqueue(5, 10);
+      queue.enqueue(3, 1000);
+      queue.enqueue(1, 100);
+
+      expect(queue.peek()).toBe(3);
+      expect(queue.isEmpty).toBeFalsy();
+    });
+
+    it("should return an element with highest value, if elements has same priority", () => {
+      queue.enqueue(3, 1000);
+      queue.enqueue(5, 1000);
+      queue.enqueue(1, 100);
+
+      expect(queue.peek()).toBe(5);
+    });
+  });
+
   describe("#enqueue", () => {
     it("should insert an element", () => {
       queue.enqueue(1, 0);
