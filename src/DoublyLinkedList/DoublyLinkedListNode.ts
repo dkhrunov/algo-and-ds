@@ -1,4 +1,4 @@
-import { Node } from '../../Node/Node';
+import { Node } from '../Node/Node';
 
 export class DoublyLinkedListNode<T> extends Node<T> {
 	protected _next: DoublyLinkedListNode<T> | null;
