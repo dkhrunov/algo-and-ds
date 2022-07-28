@@ -51,7 +51,7 @@ export class LinkedList<T> {
 	}
 
 	// O(1)
-	public prepend(value: T): LinkedList<T> {
+	public prepend(value: T): void {
 		const node = new Node(value, this.head);
 
 		this._head = node;
@@ -60,33 +60,31 @@ export class LinkedList<T> {
 			this._tail = node;
 		}
 
-		this.incrementLength();
-		return this;
+		this._length++;
 	}
 
 	// O(1)
-	public append(value: T): LinkedList<T> {
+	public append(value: T): void {
 		const node = new Node(value);
 
 		if (!this.head) {
 			this._head = node;
 			this._tail = node;
 
-			this.incrementLength();
-			return this;
+      this._length++;
+			return;
 		}
 
 		this.tail!.next = node;
 		this._tail = node;
 
-		this.incrementLength();
-		return this;
+		this._length++;
 	}
 
 	// O(n)
-	public appendByIndex(index: number, value: T): LinkedList<T> {
+	public appendByIndex(index: number, value: T): void {
 		if (index < 0 || index >= this.length) {
-			return this;
+			return;
 		}
 
 		if (index === 0) {
@@ -101,9 +99,8 @@ export class LinkedList<T> {
 
 		const node = new Node(value, found!.next);
 		found!.next = node;
-		this.incrementLength();
+		this._length++;
 
-		return this;
 	}
 
   // O(n)
@@ -122,25 +119,24 @@ export class LinkedList<T> {
     this._length--;
 
     return head.value;
-
   }
 
 	// O(n)
-	public delete(value: T): LinkedList<T> {
+	public delete(value: T): void {
 		if (!this.head) {
-			return this;
+			return;
 		}
 
 		while (this.head && this.head.value === value) {
 			this._head = this.head.next;
-			this.decrementLength();
+      this._length--;
 		}
 
 		let current = this.head;
 		while (current.next) {
 			if (current.next.value === value) {
 				current.next = current.next.next;
-				this.decrementLength();
+        this._length--;
 			} else {
 				current = current.next;
 			}
@@ -150,19 +146,19 @@ export class LinkedList<T> {
 			this._tail = current;
 		}
 
-		return this;
+		return;
 	}
 
 	// O(n)
-	public deleteByIndex(index: number): LinkedList<T> {
+	public deleteByIndex(index: number): void {
 		if (index < 0 || index >= this.length) {
-			return this;
+			return;
 		}
 
 		if (this.head && index === 0) {
 			this._head = this.head.next;
-			this.decrementLength();
-			return this;
+      this._length--;
+			return;
 		}
 
 		let current = this.head;
@@ -177,14 +173,12 @@ export class LinkedList<T> {
 
 		if (prev && current) {
 			prev.next = current.next;
-			this.decrementLength();
+      this._length--;
 		}
 
 		if (current === this.tail) {
 			this._tail = prev;
 		}
-
-		return this;
 	}
 
 	// O(1)
@@ -263,7 +257,7 @@ export class LinkedList<T> {
 	}
 
 	// O(n)
-	public reverse(): LinkedList<T> {
+	public reverse(): void {
 		let current = this.head;
 		let prev = null;
 		let next = null;
@@ -279,8 +273,6 @@ export class LinkedList<T> {
 
 		this._tail = this.head;
 		this._head = prev;
-
-		return this;
 	}
 
 	// O(n)
@@ -294,15 +286,5 @@ export class LinkedList<T> {
 		}
 
 		console.log(`${output}null`);
-	}
-
-	// O(1)
-	private incrementLength(): void {
-		this._length++;
-	}
-
-	// O(1)
-	private decrementLength(): void {
-		this._length--;
 	}
 }

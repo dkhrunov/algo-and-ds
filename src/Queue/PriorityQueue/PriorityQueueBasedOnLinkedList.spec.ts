@@ -1,11 +1,11 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
-import { PriorityQueueBasedOnArray } from "./PriorityQueueBasedOnArray";
+import { PriorityQueueBasedOnLinkedList } from "./PriorityQueueBasedOnLinkedList";
 
-describe(PriorityQueueBasedOnArray, () => {
-  let queue: PriorityQueueBasedOnArray<number>;
+describe(PriorityQueueBasedOnLinkedList, () => {
+  let queue: PriorityQueueBasedOnLinkedList<number>;
   
   beforeEach(() => {
-    queue = new PriorityQueueBasedOnArray<number>();
+    queue = new PriorityQueueBasedOnLinkedList<number>();
   });
 
   describe("#constructor", () => {
@@ -38,6 +38,7 @@ describe(PriorityQueueBasedOnArray, () => {
       queue.enqueue(3, 1000);
       queue.enqueue(5, 1000);
       queue.enqueue(1, 100);
+
 
       expect(queue.peek()).toBe(5);
     });
