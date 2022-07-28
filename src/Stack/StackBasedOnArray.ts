@@ -1,4 +1,4 @@
-export class Stack<T> {
+export class StackBasedOnArray<T> {
 	private readonly items: T[];
 
 	// O(1)

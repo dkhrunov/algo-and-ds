@@ -1,9 +1,9 @@
-import { Stack } from './Stack';
+import { StackBasedOnArray } from './StackBasedOnArray';
 
 describe("#constructor", () => {
 	describe("without argument", () => {
 		it("it create the empty stack", () => {
-			const stack = new Stack<number>();
+			const stack = new StackBasedOnArray<number>();
 
 			expect(stack.value).toEqual([]);
 			expect(stack.isEmpty).toBeTruthy();
@@ -12,7 +12,7 @@ describe("#constructor", () => {
 
 	describe("with array of values", () => {
 		it("it create the stack from that values", () => {
-			const stack = new Stack<number>([1, 2, 3, 4]);
+			const stack = new StackBasedOnArray<number>([1, 2, 3, 4]);
 
 			expect(stack.value).toEqual([1, 2, 3, 4]);
 			expect(stack.isEmpty).toBeFalsy();
@@ -22,7 +22,7 @@ describe("#constructor", () => {
 
 describe("#push", () => {
 	it("it pushes the item to the top of the stack", () => {
-		const stack = new Stack<number>([1, 2, 3, 4]);
+		const stack = new StackBasedOnArray<number>([1, 2, 3, 4]);
 		stack.push(5);
 
 		expect(stack.value[stack.length - 1]).toBe(5);
@@ -32,7 +32,7 @@ describe("#push", () => {
 describe("#pop", () => {
 	describe("whith an empty stack", () => {
 		it("it return null", () => {
-			const stack = new Stack<number>();
+			const stack = new StackBasedOnArray<number>();
 			const item = stack.pop();
 
 			expect(item).toBeNull();
@@ -41,7 +41,7 @@ describe("#pop", () => {
 
 	describe("with an non-empty stack", () => {
 		it("it return and remove the toppest element of the stack", () => {
-			const stack = new Stack<number>([1, 2, 3, 4]);
+			const stack = new StackBasedOnArray<number>([1, 2, 3, 4]);
 			const item = stack.pop();
 
 			expect(item).toBe(4);
@@ -54,7 +54,7 @@ describe("#pop", () => {
 describe("#peek", () => {
 	describe("whith an empty stack", () => {
 		it("it return null", () => {
-			const stack = new Stack<number>();
+			const stack = new StackBasedOnArray<number>();
 			const item = stack.peek();
 
 			expect(item).toBeNull();
@@ -63,7 +63,7 @@ describe("#peek", () => {
 
 	describe("with an non-empty stack", () => {
 		it("it returns the top element of the stack", () => {
-			const stack = new Stack<number>([1, 2, 3, 4]);
+			const stack = new StackBasedOnArray<number>([1, 2, 3, 4]);
 			const item = stack.peek();
 
 			expect(item).toBe(4);
@@ -75,7 +75,7 @@ describe("#peek", () => {
 
 describe("#clear", () => {
 	it("it cear the stack", () => {
-		const stack = new Stack<number>([1, 2, 3, 4]);
+		const stack = new StackBasedOnArray<number>([1, 2, 3, 4]);
 		stack.clear();
 
 		expect(stack.length).toBe(0);
