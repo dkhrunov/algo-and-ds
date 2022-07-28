@@ -1,7 +1,7 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
 import { QUEUE_FULL_ERROR } from "../Exceptions/QueueFullError";
 
-export class CircularQueue<T> {
+export class CircularQueueBasedOnArray<T> {
   private readonly _queue: T[] = [];
 
   private _size : number;

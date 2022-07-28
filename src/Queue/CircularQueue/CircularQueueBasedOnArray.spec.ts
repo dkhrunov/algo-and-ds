@@ -1,12 +1,12 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
 import { QUEUE_FULL_ERROR } from "../Exceptions/QueueFullError";
-import { CircularQueue } from "./CircularQueue";
+import { CircularQueueBasedOnArray } from "./CircularQueueBasedOnArray";
 
-describe(CircularQueue, () => {
-  let queue: CircularQueue<number>;
+describe(CircularQueueBasedOnArray, () => {
+  let queue: CircularQueueBasedOnArray<number>;
   
   beforeEach(() => {
-    queue = new CircularQueue<number>(3);
+    queue = new CircularQueueBasedOnArray<number>(3);
   });
 
   describe("#constructor", () => {
