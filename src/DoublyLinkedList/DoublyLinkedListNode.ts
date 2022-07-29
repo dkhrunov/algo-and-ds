@@ -20,7 +20,7 @@ export class DoublyLinkedListNode<T> extends Node<T> {
 		this._previous = node;
 	}
 
-	constructor(value: T, next: DoublyLinkedListNode<T> | null = null, previous: DoublyLinkedListNode<T> | null = null) {
+	public constructor(value: T, next: DoublyLinkedListNode<T> | null = null, previous: DoublyLinkedListNode<T> | null = null) {
 		super(value,next);
 
 		this._next = next;

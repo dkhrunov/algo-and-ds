@@ -18,7 +18,7 @@ export class Node<T> {
 		this._next = node;
 	}
 
-	constructor(value: T, next: Node<T> | null = null) {
+	public constructor(value: T, next: Node<T> | null = null) {
 		this._value = value;
 		this._next = next;
 	}

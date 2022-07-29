@@ -1,5 +1,5 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
-import { QUEUE_FULL_ERROR } from "../Exceptions/QueueFullError";
+import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 
 export class CircularQueueBasedOnArray<T> {
   private readonly _queue: T[] = [];
@@ -8,7 +8,7 @@ export class CircularQueueBasedOnArray<T> {
   private _front: number;
   private _rear : number;
 
-  constructor(size: number) {
+  public constructor(size: number) {
     this._size  = size;
     this._front = -1;
     this._rear  = -1;
@@ -41,7 +41,7 @@ export class CircularQueueBasedOnArray<T> {
   // O(1)
   public enqueue(element: T): void {
     if (this.isFull) {
-      throw QUEUE_FULL_ERROR;
+      throw QUEUE_OVERFLOW_ERROR;
     }
     else if (this._front === -1 && this._rear === -1) {
       this._front = 0;

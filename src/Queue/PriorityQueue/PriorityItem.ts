@@ -10,7 +10,7 @@ export class PriorityItem<T> {
     return this._priority;
   }
 
-  constructor(value: T, priority: number) {
+  public constructor(value: T, priority: number) {
     this._value = value;
     this._priority = priority;
   }

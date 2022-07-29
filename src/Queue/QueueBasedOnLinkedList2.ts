@@ -23,7 +23,7 @@ export class QueueBasedOnLinkedList2<T> {
 		return this.length === 0;
 	}
 
-	constructor(data?: T[]) {
+	public constructor(data?: T[]) {
 		if (data !== undefined) {
 			this.enqueueArray(data);
 		}

@@ -16,7 +16,7 @@ export class StackBasedOnArray<T> {
 		return this.items.length;
 	}
 
-	constructor(items: T[] = []) {
+	public constructor(items: T[] = []) {
 		this.items = items;
 	}
 

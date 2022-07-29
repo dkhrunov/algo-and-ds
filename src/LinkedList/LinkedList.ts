@@ -25,7 +25,7 @@ export class LinkedList<T> {
 		return this._length;
 	}
 
-	constructor(array?: T[]) {
+	public constructor(array?: T[]) {
 		this._head = null;
 		this._tail = null;
 		this._length = 0;

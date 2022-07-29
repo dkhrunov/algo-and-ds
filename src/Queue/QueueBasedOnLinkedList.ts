@@ -21,7 +21,7 @@ export class QueueBasedOnLinkedList<T> {
 		return this.length === 0;
 	}
 
-	constructor() {
+	public constructor() {
 		this._front = null;
 		this._rear = null;
 		this._length = 0;

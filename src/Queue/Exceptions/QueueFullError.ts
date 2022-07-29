@@ -1,1 +1,0 @@
-export const QUEUE_FULL_ERROR = new Error('Queue is Full');

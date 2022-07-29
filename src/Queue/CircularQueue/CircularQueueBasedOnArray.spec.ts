@@ -1,5 +1,5 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
-import { QUEUE_FULL_ERROR } from "../Exceptions/QueueFullError";
+import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 import { CircularQueueBasedOnArray } from "./CircularQueueBasedOnArray";
 
 describe(CircularQueueBasedOnArray, () => {
@@ -52,7 +52,7 @@ describe(CircularQueueBasedOnArray, () => {
       queue.enqueue(2);
       queue.enqueue(3);
 
-      expect(() => queue.enqueue(4)).toThrowError(QUEUE_FULL_ERROR);
+      expect(() => queue.enqueue(4)).toThrowError(QUEUE_OVERFLOW_ERROR);
     });
   });
 
