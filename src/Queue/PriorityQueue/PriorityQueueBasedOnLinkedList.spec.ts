@@ -85,7 +85,7 @@ describe(PriorityQueueBasedOnLinkedList, () => {
       expect(queue.dequeue()).toBe(5);
     });
 
-    it("should remove the elements in the correct order", () => {
+    it("should remove the elements in order by priority", () => {
       queue.enqueue(5, 10);
       queue.enqueue(3, 1000);
       queue.enqueue(1, 100);

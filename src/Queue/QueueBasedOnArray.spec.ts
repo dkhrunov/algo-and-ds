@@ -34,7 +34,7 @@ describe(QueueBasedOnArray, () => {
       expect(queue.isFull).toBeTruthy();
     });
 
-    it("should be not full", () => {
+    it("should not be full", () => {
       queue.enqueue(1);
       queue.enqueue(2);
       queue.enqueue(3);
@@ -49,7 +49,7 @@ describe(QueueBasedOnArray, () => {
     });
 
 
-    it("should be not empty", () => {
+    it("should not be empty", () => {
       queue.enqueue(1);
       queue.enqueue(2);
 
@@ -93,7 +93,7 @@ describe(QueueBasedOnArray, () => {
       queue.enqueue(5);
 
       expect(() => queue.enqueue(5)).toThrowError(QUEUE_OVERFLOW_ERROR);
-    })
+    });
   });
 
   describe("#dequeue", () => {
@@ -110,7 +110,7 @@ describe(QueueBasedOnArray, () => {
       expect(queue.peek()).toBeNull();
     });
 
-    it("should remove the elements in the correct order", () => {
+    it("should dequeue from queue in FIFO order", () => {
       queue.enqueue(1);
       queue.enqueue(2);
       queue.enqueue(3);
