@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Node/Node.ts</title>
+    <title>Code coverage report for DoublyLinkedList/DoublyLinkedListNode.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">Node</a> Node.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">DoublyLinkedList</a> DoublyLinkedListNode.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -81,53 +81,65 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">201x</span>
-<span class="cline-any cline-yes">201x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">177x</span>
-<span class="cline-any cline-yes">177x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">186x</span>
-<span class="cline-any cline-yes">186x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">256x</span>
-<span class="cline-any cline-yes">256x</span>
-<span class="cline-any cline-yes">256x</span>
-<span class="cline-any cline-yes">9x</span></td><td class="text"><pre class="prettyprint lang-js">export class Node&lt;T&gt; {
-	protected _value: T;
-	protected _next: Node&lt;T&gt; | null;
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import { Node } from '../Node/Node';
 &nbsp;
-	public get value(): T {
-		return this._value;
-	}
+export class DoublyLinkedListNode&lt;T&gt; extends Node&lt;T&gt; {
+	protected _next: DoublyLinkedListNode&lt;T&gt; | null;
+	protected _previous: DoublyLinkedListNode&lt;T&gt; | null;
 &nbsp;
-	public set value(value: T) {
-		this._value = value;
-	}
-&nbsp;
-	public get next(): Node&lt;T&gt; | null {
+	public get next(): DoublyLinkedListNode&lt;T&gt; | null {
 		return this._next;
 	}
 &nbsp;
-	public set next(node: Node&lt;T&gt; | null) {
+	public set next(node: DoublyLinkedListNode&lt;T&gt; | null) {
 		this._next = node;
 	}
 &nbsp;
-	public constructor(value: T, next: Node&lt;T&gt; | null = null) {
-		this._value = value;
+	public get previous(): DoublyLinkedListNode&lt;T&gt; | null {
+		return this._previous;
+	}
+&nbsp;
+	public set previous(node: DoublyLinkedListNode&lt;T&gt; | null) {
+		this._previous = node;
+	}
+&nbsp;
+	public constructor(value: T, next: DoublyLinkedListNode&lt;T&gt; | null = null, previous: DoublyLinkedListNode&lt;T&gt; | null = null) {
+		super(value,next);
+&nbsp;
 		this._next = next;
+		this._previous = previous;
 	}
 }</pre></td></tr></table></pre>
 

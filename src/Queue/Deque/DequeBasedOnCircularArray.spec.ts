@@ -1,12 +1,12 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
-import { DequeBasedOnArray } from "./DequeBasedOnArray";
+import { DequeBasedOnCircularArray } from "./DequeBasedOnCircularArray";
 
-describe(DequeBasedOnArray, () => {
-  let deque: DequeBasedOnArray<number>;
+describe(DequeBasedOnCircularArray, () => {
+  let deque: DequeBasedOnCircularArray<number>;
 
   beforeEach(() => {
-    deque = new DequeBasedOnArray<number>(5);
+    deque = new DequeBasedOnCircularArray<number>(5);
   });
 
   describe('#constructor', () => {
@@ -563,6 +563,44 @@ describe(DequeBasedOnArray, () => {
       // rear = -1
 
       expect(deque.peekLast()).toBeNull();
+    });
+  });
+
+  describe('Stack implementation', () => {
+    it('should implements LIFO rule', () => {
+      deque.push(1);
+      deque.push(2);
+      deque.push(3);
+      deque.push(4);
+
+      expect(deque.pop()).toBe(4);
+      expect(deque.pop()).toBe(3);
+      expect(deque.pop()).toBe(2);
+      expect(deque.pop()).toBe(1);
+
+      deque.addFirst(1);
+      deque.addFirst(2);
+      deque.addFirst(3);
+      deque.addFirst(4);
+
+      expect(deque.removeFirst()).toBe(4);
+      expect(deque.removeFirst()).toBe(3);
+      expect(deque.removeFirst()).toBe(2);
+      expect(deque.removeFirst()).toBe(1);
+    });
+  });
+
+  describe('Queue implementation', () => {
+    it('should implements FIFO rule', () => {
+      deque.addLast(1);
+      deque.addLast(2);
+      deque.addLast(3);
+      deque.addLast(4);
+
+      expect(deque.removeFirst()).toBe(1);
+      expect(deque.removeFirst()).toBe(2);
+      expect(deque.removeFirst()).toBe(3);
+      expect(deque.removeFirst()).toBe(4);
     });
   });
 });

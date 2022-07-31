@@ -1,16 +1,16 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 
-export class DequeBasedOnArray<T> {
-  private readonly _array: T[];
+export class DequeBasedOnCircularArray<T> {
+  private readonly _array: (T | null)[];
   private readonly _size: number;
 
   private _front: number;
   private _rear: number;
 
   constructor(size: number) {
+    this._array = new Array(size);
     this._size = size;
-    this._array = [];
     this._front = -1;
     this._rear = 0;
   }
@@ -74,6 +74,7 @@ export class DequeBasedOnArray<T> {
     }
 
     const item = this._array[this._front];
+    this._array[this._front] = null;
 
     // Deque has only one element
     if (this._front === this._rear) {
@@ -89,7 +90,7 @@ export class DequeBasedOnArray<T> {
       this._front++;
     }
 
-    return item;
+    return item!;
   }
 
   // O(1)
@@ -99,6 +100,7 @@ export class DequeBasedOnArray<T> {
     }
 
     const item = this._array[this._rear];
+    this._array[this._rear] = null;
 
     // Deque has only one element
     if (this._front === this._rear) {
@@ -112,7 +114,7 @@ export class DequeBasedOnArray<T> {
       this._rear--;
     }
 
-    return item;
+    return item!;
   }
 
   // O(1)
@@ -131,5 +133,15 @@ export class DequeBasedOnArray<T> {
     }
 
     return this._array[this._rear];
+  }
+
+  // O(1)
+  public push(item: T): void {
+    this.addFirst(item);
+  }
+  
+  // O(1)
+  public pop(): T {
+    return this.removeFirst();
   }
 }

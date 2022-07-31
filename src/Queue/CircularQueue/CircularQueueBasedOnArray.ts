@@ -2,13 +2,14 @@ import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 
 export class CircularQueueBasedOnArray<T> {
-  private readonly _queue: T[] = [];
+  private readonly _queue: T[];
 
   private _size : number;
   private _front: number;
   private _rear : number;
 
   public constructor(size: number) {
+    this._queue  = new Array(size);
     this._size  = size;
     this._front = -1;
     this._rear  = -1;

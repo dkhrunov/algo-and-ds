@@ -9,7 +9,7 @@ export class QueueBasedOnArray<T> {
   private _rear: number;
 
   public constructor(size: number) {
-    this._queue = [];
+    this._queue = new Array(size);
     this._size = size;
     this._front = 0;
     this._rear = -1;
