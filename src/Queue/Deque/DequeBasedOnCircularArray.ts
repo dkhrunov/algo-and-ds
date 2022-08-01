@@ -147,16 +147,6 @@ export class DequeBasedOnCircularArray<T> implements IDeque<T> {
   }
 
   // O(1)
-  public push(value: T): void {
-    this.addFirst(value);
-  }
-  
-  // O(1)
-  public pop(): T {
-    return this.removeFirst();
-  }
-
-  // O(1)
   public clear(): void {
     this._array = new Array(this._size);
     this._front = -1;

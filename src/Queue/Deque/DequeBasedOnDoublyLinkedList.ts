@@ -126,16 +126,6 @@ export class DequeBasedOnDoublyLinkedList<T>  implements IDeque<T> {
   }
 
   // O(1)
-  public push(value: T): void {
-    this.addFirst(value);
-  }
-  
-  // O(1)
-  public pop(): T {
-    return this.removeFirst();
-  }
-
-  // O(1)
   public clear(): void {
     this._front = null;
     this._rear = null;

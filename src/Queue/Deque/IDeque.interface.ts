@@ -7,7 +7,5 @@ export interface IDeque<T> {
   addLast(value: T): void;
   removeFirst(): T;
   removeLast(): T;
-  push(value: T): void;
-  pop(): void;
   clear(): void;
 }
