@@ -1,18 +1,25 @@
 import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
+import { IDeque } from "./IDeque.interface";
 
-export class DequeBasedOnCircularArray<T> {
-  private readonly _array: (T | null)[];
+export class DequeBasedOnCircularArray<T> implements IDeque<T> {
   private readonly _size: number;
-
+  private _array: (T | null)[];
   private _front: number;
   private _rear: number;
-
+  private _count: number;
+  
   constructor(size: number) {
-    this._array = new Array(size);
     this._size = size;
+    this._array = new Array(size);
     this._front = -1;
     this._rear = 0;
+    this._count = 0;
+  }
+
+  // O(1)
+  public get count(): number {
+    return this._count;
   }
 
   // O(1)
@@ -26,7 +33,25 @@ export class DequeBasedOnCircularArray<T> {
   }
 
   // O(1)
-  public addFirst(item: T): void {
+  public get first(): T {
+    if (this.isEmpty) {
+      throw QUEUE_EMPTY_ERROR;
+    }
+
+    return this._array[this._front]!;
+  }
+
+  // O(1)
+  public get last(): T {
+    if (this.isEmpty) {
+      throw QUEUE_EMPTY_ERROR;
+    }
+
+    return this._array[this._rear]!;
+  }
+
+  // O(1)
+  public addFirst(value: T): void {
     if (this.isFull) {
       throw QUEUE_OVERFLOW_ERROR;
     }
@@ -43,11 +68,12 @@ export class DequeBasedOnCircularArray<T> {
       this._front--;
     }
 
-    this._array[this._front] = item;
+    this._array[this._front] = value;
+    this._count++;
   }
 
   // O(1)
-  public addLast(item: T): void {
+  public addLast(value: T): void {
     if (this.isFull) {
       throw QUEUE_OVERFLOW_ERROR;
     }
@@ -64,7 +90,8 @@ export class DequeBasedOnCircularArray<T> {
       this._rear++;
     }
 
-    this._array[this._rear] = item;
+    this._array[this._rear] = value;
+    this._count++;
   }
 
   // O(1)
@@ -75,6 +102,7 @@ export class DequeBasedOnCircularArray<T> {
 
     const item = this._array[this._front];
     this._array[this._front] = null;
+    this._count--;
 
     // Deque has only one element
     if (this._front === this._rear) {
@@ -101,6 +129,7 @@ export class DequeBasedOnCircularArray<T> {
 
     const item = this._array[this._rear];
     this._array[this._rear] = null;
+    this._count--;
 
     // Deque has only one element
     if (this._front === this._rear) {
@@ -118,30 +147,20 @@ export class DequeBasedOnCircularArray<T> {
   }
 
   // O(1)
-  public peekFirst(): T | null {
-    if (this.isEmpty) {
-      return null;
-    }
-
-    return this._array[this._front];
-  }
-
-  // O(1)
-  public peekLast(): T | null {
-    if (this.isEmpty) {
-      return null;
-    }
-
-    return this._array[this._rear];
-  }
-
-  // O(1)
-  public push(item: T): void {
-    this.addFirst(item);
+  public push(value: T): void {
+    this.addFirst(value);
   }
   
   // O(1)
   public pop(): T {
     return this.removeFirst();
+  }
+
+  // O(1)
+  public clear(): void {
+    this._array = new Array(this._size);
+    this._front = -1;
+    this._rear = 0;
+    this._count = 0;
   }
 }

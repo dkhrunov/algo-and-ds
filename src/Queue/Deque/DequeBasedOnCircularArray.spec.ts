@@ -9,13 +9,6 @@ describe(DequeBasedOnCircularArray, () => {
     deque = new DequeBasedOnCircularArray<number>(5);
   });
 
-  describe('#constructor', () => {
-    it('should create empty deque', () => {
-      expect(deque.isEmpty).toBeTruthy();
-      expect(deque.isFull).toBeFalsy();
-    });
-  });
-
   describe('#isEmpty', () => {
     it('should check if deque is  empty', () => {
       expect(deque.isEmpty).toBeTruthy();
@@ -76,6 +69,180 @@ describe(DequeBasedOnCircularArray, () => {
     });
   });
 
+  describe('#first', () => {
+    it('should peek first element', () => {
+      deque.addLast(1);
+      deque.addLast(2);
+      deque.addFirst(0);
+      deque.addLast(3);
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [0, 1, 2, 3]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 2, 3, -, 0]
+      // front = 4
+      // rear = 2
+
+      expect(deque.first).toBe(0);
+
+      deque.removeFirst();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [1, 2, 3]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 2, 3, -, 0]
+      // front = 0
+      // rear = 2
+
+      expect(deque.first).toBe(1);
+
+      deque.removeLast();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [1, 2]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 2, 3, -, 0]
+      // front = 0
+      // rear = 1
+
+      expect(deque.first).toBe(1);
+
+      deque.removeFirst();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [2]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 2, 3, -, 0]
+      // front = 1
+      // rear = 1
+
+      expect(deque.first).toBe(2);
+
+      deque.removeFirst();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // []
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 2, 3, -, 0]
+      // front = -1
+      // rear = -1
+
+      expect(() => deque.first).toThrowError(QUEUE_EMPTY_ERROR);
+    });
+  });
+
+  describe('#last', () => {
+    it('should peek first element', () => {
+      deque.addFirst(1);
+      deque.addFirst(2);
+      deque.addLast(0);
+      deque.addFirst(3);
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [3, 2, 1, 0]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 0, -, 3, 2]
+      // front = 3
+      // rear = 1
+
+      expect(deque.last).toBe(0);
+
+      deque.removeLast();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [3, 2, 1]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 0, -, 3, 2]
+      // front = 3
+      // rear = 0
+
+      expect(deque.last).toBe(1);
+
+      deque.removeFirst();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [2, 1]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 0, -, 3, 2]
+      // front = 4
+      // rear = 0
+
+      expect(deque.last).toBe(1);
+
+      deque.removeLast();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [2]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 0, -, 3, 2]
+      // front = 4
+      // rear = 4
+
+      expect(deque.last).toBe(2);
+
+      deque.removeFirst();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // []
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 0, -, 3, 2]
+      // front = -1
+      // rear = -1
+
+      expect(() => deque.last).toThrowError(QUEUE_EMPTY_ERROR);
+    });
+  });
+
   describe('#addFirst', () => {
     it("should throw an error when the deque is full", () => {
       deque.addFirst(1);
@@ -114,7 +281,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = 0
       // rear = 0
 
-      expect(deque.peekFirst()).toBe(1);
+      expect(deque.first).toBe(1);
 
       deque.addFirst(2);
 
@@ -130,7 +297,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = 4
       // rear = 0
 
-      expect(deque.peekFirst()).toBe(2);
+      expect(deque.first).toBe(2);
 
       deque.addLast(3);
 
@@ -146,7 +313,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = 4
       // rear = 1
 
-      expect(deque.peekFirst()).toBe(2);
+      expect(deque.first).toBe(2);
     });
 
     it('should close the queue from the front', () => {
@@ -202,6 +369,18 @@ describe(DequeBasedOnCircularArray, () => {
       expect(deque.removeFirst()).toBe(3);
       expect(deque.removeFirst()).toBe(2);
     });
+
+    it('should increment counter', () => {
+      expect(deque.count).toBe(0);
+      
+      deque.addFirst(1);
+
+      expect(deque.count).toBe(1);
+      
+      deque.addFirst(2);
+
+      expect(deque.count).toBe(2);
+    });
   });
 
   describe('#addLast', () => {
@@ -242,7 +421,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = 0
       // rear = 0
 
-      expect(deque.peekLast()).toBe(1);
+      expect(deque.last).toBe(1);
 
       deque.addLast(2);
 
@@ -258,7 +437,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = 0
       // rear = 1
 
-      expect(deque.peekLast()).toBe(2);
+      expect(deque.last).toBe(2);
 
       deque.addFirst(3);
 
@@ -274,7 +453,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = 4
       // rear = 1
 
-      expect(deque.peekLast()).toBe(2);
+      expect(deque.last).toBe(2);
     });
 
     it('should close the queue from the end', () => {
@@ -330,6 +509,18 @@ describe(DequeBasedOnCircularArray, () => {
       expect(deque.removeFirst()).toBe(5);
       expect(deque.removeFirst()).toBe(6);
     });
+
+    it('should increment counter', () => {
+      expect(deque.count).toBe(0);
+      
+      deque.addLast(1);
+
+      expect(deque.count).toBe(1);
+      
+      deque.addLast(2);
+
+      expect(deque.count).toBe(2);
+    });
   });
 
   describe('#removeFirst', () => {
@@ -359,6 +550,23 @@ describe(DequeBasedOnCircularArray, () => {
       expect(deque.removeFirst()).toBe(1);
       expect(deque.removeFirst()).toBe(2);
       expect(deque.removeFirst()).toBe(3);
+    });
+
+    it('should decrement counter', () => {
+      expect(deque.count).toBe(0);
+      
+      deque.addLast(1);
+      deque.addLast(2);
+
+      expect(deque.count).toBe(2);
+
+      deque.removeFirst();
+
+      expect(deque.count).toBe(1);
+
+      deque.removeFirst();
+      
+      expect(deque.count).toBe(0);
     });
   });
 
@@ -390,179 +598,22 @@ describe(DequeBasedOnCircularArray, () => {
       expect(deque.removeLast()).toBe(2);
       expect(deque.removeLast()).toBe(3);
     });
-  });
 
-  describe('#peekFirst', () => {
-    it('should peek first element', () => {
+    it('should decrement counter', () => {
+      expect(deque.count).toBe(0);
+      
       deque.addLast(1);
       deque.addLast(2);
-      deque.addFirst(0);
-      deque.addLast(3);
 
-      // =================
-      // | Visialisation |
-      // =================
-      // [0, 1, 2, 3]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 2, 3, -, 0]
-      // front = 4
-      // rear = 2
-
-      expect(deque.peekFirst()).toBe(0);
-
-      deque.removeFirst();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // [1, 2, 3]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 2, 3, -, 0]
-      // front = 0
-      // rear = 2
-
-      expect(deque.peekFirst()).toBe(1);
+      expect(deque.count).toBe(2);
 
       deque.removeLast();
 
-      // =================
-      // | Visialisation |
-      // =================
-      // [1, 2]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 2, 3, -, 0]
-      // front = 0
-      // rear = 1
-
-      expect(deque.peekFirst()).toBe(1);
-
-      deque.removeFirst();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // [2]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 2, 3, -, 0]
-      // front = 1
-      // rear = 1
-
-      expect(deque.peekFirst()).toBe(2);
-
-      deque.removeFirst();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // []
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 2, 3, -, 0]
-      // front = -1
-      // rear = -1
-
-      expect(deque.peekFirst()).toBeNull();
-    });
-  });
-
-  describe('#peekLast', () => {
-    it('should peek first element', () => {
-      deque.addFirst(1);
-      deque.addFirst(2);
-      deque.addLast(0);
-      deque.addFirst(3);
-
-      // =================
-      // | Visialisation |
-      // =================
-      // [3, 2, 1, 0]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 0, -, 3, 2]
-      // front = 3
-      // rear = 1
-
-      expect(deque.peekLast()).toBe(0);
+      expect(deque.count).toBe(1);
 
       deque.removeLast();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // [3, 2, 1]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 0, -, 3, 2]
-      // front = 3
-      // rear = 0
-
-      expect(deque.peekLast()).toBe(1);
-
-      deque.removeFirst();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // [2, 1]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 0, -, 3, 2]
-      // front = 4
-      // rear = 0
-
-      expect(deque.peekLast()).toBe(1);
-
-      deque.removeLast();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // [2]
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 0, -, 3, 2]
-      // front = 4
-      // rear = 4
-
-      expect(deque.peekLast()).toBe(2);
-
-      deque.removeFirst();
-
-      // =================
-      // | Visialisation |
-      // =================
-      // []
-      //
-      // || ------------ ||
-      //
-      // Inner:
-      // [1, 0, -, 3, 2]
-      // front = -1
-      // rear = -1
-
-      expect(deque.peekLast()).toBeNull();
+      
+      expect(deque.count).toBe(0);
     });
   });
 
@@ -601,6 +652,45 @@ describe(DequeBasedOnCircularArray, () => {
       expect(deque.removeFirst()).toBe(2);
       expect(deque.removeFirst()).toBe(3);
       expect(deque.removeFirst()).toBe(4);
+    });
+  });
+
+  describe('#clear', () => {
+    it('should clear the deque', () => {
+      deque.addLast(1);
+      deque.addLast(2);
+      deque.addFirst(0);
+      deque.addLast(3);
+
+      // =================
+      // | Visialisation |
+      // =================
+      // [0, 1, 2, 3]
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [1, 2, 3, -, 0]
+      // front = 4
+      // rear = 2
+
+      expect(deque.isEmpty).toBeFalsy();
+
+      deque.clear();
+
+      // =================
+      // | Visialisation |
+      // =================
+      // []
+      //
+      // || ------------ ||
+      //
+      // Inner:
+      // [-, -, -, -, -]
+      // front = -1
+      // rear = 0
+
+      expect(deque.isEmpty).toBeTruthy();
     });
   });
 });
