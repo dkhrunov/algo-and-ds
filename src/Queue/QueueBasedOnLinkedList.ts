@@ -1,5 +1,5 @@
 import { Node } from "../Node/Node";
-import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "./Exceptions/QueueUnderflowError";
 
 export class QueueBasedOnLinkedList<T> {
 	private _front: Node<T> | null;
@@ -44,7 +44,7 @@ export class QueueBasedOnLinkedList<T> {
 	// O(1)
 	public dequeue(): T {
 		if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
 		const value = this._front!.value;

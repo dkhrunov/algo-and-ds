@@ -1,5 +1,5 @@
 
-import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "./Exceptions/QueueUnderflowError";
 import { QUEUE_OVERFLOW_ERROR } from "./Exceptions/QueueOverflowError";
 import { QueueBasedOnArray } from "./QueueBasedOnArray"
 
@@ -98,7 +98,7 @@ describe(QueueBasedOnArray, () => {
 
   describe("#dequeue", () => {
     it("should throw an error when the queue is empty", () => {
-      expect(() => queue.dequeue()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => queue.dequeue()).toThrowError(QUEUE_UNDERFLOW_ERROR);
     })
 
     it("should remove an element", () => {

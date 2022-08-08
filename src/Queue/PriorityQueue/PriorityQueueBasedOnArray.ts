@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { PriorityItem } from "./PriorityItem";
 
 export class PriorityQueueBasedOnArray<T> {
@@ -19,7 +19,7 @@ export class PriorityQueueBasedOnArray<T> {
   // O(n)
   public dequeue(): T {
 		if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     const index = this._getIndexOfHighest();

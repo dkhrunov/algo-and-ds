@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { DequeBasedOnDoublyLinkedList } from "./DequeBasedOnDoublyLinkedList";
 
 describe(DequeBasedOnDoublyLinkedList, () => {
@@ -41,7 +41,7 @@ describe(DequeBasedOnDoublyLinkedList, () => {
 
       deque.removeFirst();
 
-      expect(() => deque.first).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.first).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
   });
 
@@ -68,7 +68,7 @@ describe(DequeBasedOnDoublyLinkedList, () => {
 
       deque.removeFirst();
 
-      expect(() => deque.last).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.last).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
   });
 
@@ -166,7 +166,7 @@ describe(DequeBasedOnDoublyLinkedList, () => {
 
   describe('#removeFirst', () => {
     it("should throw an error when the deque is empty", () => {
-      expect(() => deque.removeFirst()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.removeFirst()).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
 
     it('should add element to the front', () => {
@@ -201,7 +201,7 @@ describe(DequeBasedOnDoublyLinkedList, () => {
 
   describe('#removeLast', () => {
     it("should throw an error when the deque is empty", () => {
-      expect(() => deque.removeLast()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.removeLast()).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
 
     it('should add element to the front', () => {

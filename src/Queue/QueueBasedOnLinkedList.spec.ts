@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "./Exceptions/QueueUnderflowError";
 import { QueueBasedOnLinkedList } from "./QueueBasedOnLinkedList"
 
 describe("#constructor", () => {
@@ -42,7 +42,7 @@ describe("#dequeue", () => {
 		it("should throw an error", () => {
 			const queue = new QueueBasedOnLinkedList<number>();
 
-      expect(() => queue.dequeue()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => queue.dequeue()).toThrowError(QUEUE_UNDERFLOW_ERROR);
 			expect(queue.length).toBe(0);
 		})
 	})

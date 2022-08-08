@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 import { IDeque } from "./IDeque.interface";
 
@@ -35,7 +35,7 @@ export class DequeBasedOnCircularArray<T> implements IDeque<T> {
   // O(1)
   public get first(): T {
     if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     return this._array[this._front]!;
@@ -44,7 +44,7 @@ export class DequeBasedOnCircularArray<T> implements IDeque<T> {
   // O(1)
   public get last(): T {
     if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     return this._array[this._rear]!;
@@ -97,7 +97,7 @@ export class DequeBasedOnCircularArray<T> implements IDeque<T> {
   // O(1)
   public removeFirst(): T {
     if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     const item = this._array[this._front];
@@ -124,7 +124,7 @@ export class DequeBasedOnCircularArray<T> implements IDeque<T> {
   // O(1)
   public removeLast(): T {
     if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     const item = this._array[this._rear];

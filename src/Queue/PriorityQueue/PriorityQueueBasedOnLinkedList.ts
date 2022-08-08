@@ -1,6 +1,6 @@
 import { PriorityItem } from "./PriorityItem";
 import { Node } from "../../Node/Node";
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { LinkedList } from "../../LinkedList/LinkedList";
 
 // ---------------------------------
@@ -119,7 +119,7 @@ export class PriorityQueueBasedOnLinkedList<T> {
   // O(1)
   public dequeue(): T {
 		if (this._linkedList.head === null) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     return this._linkedList.deleteHead()!.value;

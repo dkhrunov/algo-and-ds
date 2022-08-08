@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "./Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "./Exceptions/QueueUnderflowError";
 import { QUEUE_OVERFLOW_ERROR } from "./Exceptions/QueueOverflowError";
 
 export class QueueBasedOnArray<T> {
@@ -37,7 +37,7 @@ export class QueueBasedOnArray<T> {
   // O(1)
   public dequeue(): T {
     if (this.isEmpty) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     const item = this._queue[this._front++];

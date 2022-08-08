@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 import { DequeBasedOnCircularArray } from "./DequeBasedOnCircularArray";
 
@@ -152,7 +152,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = -1
       // rear = -1
 
-      expect(() => deque.first).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.first).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
   });
 
@@ -239,7 +239,7 @@ describe(DequeBasedOnCircularArray, () => {
       // front = -1
       // rear = -1
 
-      expect(() => deque.last).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.last).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
   });
 
@@ -525,7 +525,7 @@ describe(DequeBasedOnCircularArray, () => {
 
   describe('#removeFirst', () => {
     it("should throw an error when the deque is empty", () => {
-      expect(() => deque.removeFirst()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.removeFirst()).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
 
     it('should add element to the front', () => {
@@ -572,7 +572,7 @@ describe(DequeBasedOnCircularArray, () => {
 
   describe('#removeLast', () => {
     it("should throw an error when the deque is empty", () => {
-      expect(() => deque.removeLast()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => deque.removeLast()).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
 
     it('should add element to the front', () => {

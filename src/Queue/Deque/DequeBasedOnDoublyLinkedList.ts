@@ -1,5 +1,5 @@
 import { DoublyLinkedListNode } from "../../LinkedList/DoublyLinkedList/DoublyLinkedListNode";
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { IDeque } from "./IDeque.interface";
 
 export class DequeBasedOnDoublyLinkedList<T>  implements IDeque<T> {
@@ -26,7 +26,7 @@ export class DequeBasedOnDoublyLinkedList<T>  implements IDeque<T> {
   // O(1)
   public get first(): T {
     if (this._front === null) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     return this._front.value;
@@ -35,7 +35,7 @@ export class DequeBasedOnDoublyLinkedList<T>  implements IDeque<T> {
   // O(1)
   public get last(): T {
     if (this._rear === null) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     return this._rear.value;
@@ -81,7 +81,7 @@ export class DequeBasedOnDoublyLinkedList<T>  implements IDeque<T> {
   public removeFirst(): T {
      // is empty
      if (this._front === null) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     const node = this._front;
@@ -105,7 +105,7 @@ export class DequeBasedOnDoublyLinkedList<T>  implements IDeque<T> {
   public removeLast(): T {
      // is empty
      if (this._rear === null) {
-      throw QUEUE_EMPTY_ERROR;
+      throw QUEUE_UNDERFLOW_ERROR;
     }
 
     const node = this._rear;

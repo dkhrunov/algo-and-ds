@@ -1,4 +1,4 @@
-import { QUEUE_EMPTY_ERROR } from "../Exceptions/QueueEmptyError";
+import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 import { QUEUE_OVERFLOW_ERROR } from "../Exceptions/QueueOverflowError";
 import { CircularQueueBasedOnArray } from "./CircularQueueBasedOnArray";
 
@@ -86,14 +86,14 @@ describe(CircularQueueBasedOnArray, () => {
     });
 
     it("should throw an error when trying to dequeue an element from an empty queue", () => {
-      expect(() => queue.dequeue()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => queue.dequeue()).toThrowError(QUEUE_UNDERFLOW_ERROR);
 
       queue.enqueue(1);
       queue.enqueue(2);
       queue.dequeue();
       queue.dequeue();
 
-      expect(() => queue.dequeue()).toThrowError(QUEUE_EMPTY_ERROR);
+      expect(() => queue.dequeue()).toThrowError(QUEUE_UNDERFLOW_ERROR);
     });
   });
 });
