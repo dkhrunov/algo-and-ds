@@ -1,0 +1,1 @@
+export const QUEUE_OVERFLOW_ERROR = new Error('Queue overflow');
