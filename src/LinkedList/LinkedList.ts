@@ -244,7 +244,7 @@ export class LinkedList<T> {
 
 	// O(n)
 	public traverse(
-		callback: (node: Node<T>, index?: number) => void
+		callback: (node: Node<T>, index: number) => void
 	): void {
 		let current = this.head;
 		let index = 0;

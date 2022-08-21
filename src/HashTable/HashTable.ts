@@ -4,7 +4,6 @@ function defaultHashFn<T extends { toString: () => string }>(key: T): number {
   return key.toString().split('').reduce((acc, char) => acc += char.charCodeAt(0), 0)
 }
 
-// TODO migrate to LinkedList and delete HashTableNode
 export class HashTable<K, V> {
   // No. of pairs stored
   private _size = 0;
