@@ -13,6 +13,8 @@ type Bucket<K, V> = LinkedList<NodeValue<K, V>>;
 
 type HashFn<K> = (key: K) => number;
 
+// Used Separate Chaining to handle collision.
+// Implements Load Factor and Rehashing.
 export class HashTableBasedOnLinkedList<K, V> {
   // No. of pairs stored
   private _size = 0;
