@@ -1,10 +1,10 @@
-import { MinHeap } from './MinHeap';
+import { MaxHeap } from './MaxHeap';
 
-describe(MinHeap, () => {
-  let heap: MinHeap;
+describe(MaxHeap, () => {
+  let heap: MaxHeap;
   
   beforeEach(() => {
-    heap = new MinHeap();
+    heap = new MaxHeap();
   });
 
 	describe("#constructor", () => {
