@@ -63,16 +63,16 @@ describe(HashTable, () => {
       expect(map.get(122)).toBe('value 122');
     });
 
-    it("should run rehashing when reached Load Factor (default LD = 0.75, initial Bucket Size = 5)", () => {
-      // LD = 0.2
+    it("should run rehashing when reached Load Factor (default LF = 0.75, initial Bucket Size = 5)", () => {
+      // LF = 0.2
       map.set(1, 'value 1');
-      // LD = 0.4
+      // LF = 0.4
       map.set(2, 'value 2');
-      // LD = 0.6
+      // LF = 0.6
       map.set(3, 'value 3');
-      // LD = 0.8 -> Rehashing... -> Bucket Size doubled and LD = 0.4
+      // LF = 0.8 -> Rehashing... -> Bucket Size doubled and LF = 0.4
       map.set(4, 'value 4');
-      // LD = 0.5
+      // LF = 0.5
       map.set(5, 'value 5');
 
       expect(map.size).toBe(5);

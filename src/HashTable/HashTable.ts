@@ -48,6 +48,7 @@ export class HashTable<K, V> {
 
   private readonly _hashFn: (key: K) => number;
 
+  // O(1)
   public get size(): number {
     return this._size;
   }
@@ -59,6 +60,7 @@ export class HashTable<K, V> {
     this._hashFn = hashFn ?? defaultHashFn;
   }
 
+  // O(1) + potentially time to find dup in chain + potentially time to rehashing (depends of LoadFactor)
   public set(key: K, value: V): void {
     const bucketIndex = this._getBucketIndex(key);
 
@@ -76,7 +78,7 @@ export class HashTable<K, V> {
       head = head.next;
     }
 
-    // new node with the K and 
+    // new node with the K and value V
     const newNode = new HashTableNode(key, value);
     // The head node at the index
     head = this._buckets[bucketIndex];
@@ -97,7 +99,7 @@ export class HashTable<K, V> {
     }
   }
 
-
+  // O(1) + potentially time to find elem in chain (depends on the number of collisions)
   public get(key: K): V | null {
     //Get actual index of the key
     const actualIndex = this._getBucketIndex(key);
@@ -116,6 +118,7 @@ export class HashTable<K, V> {
     return null;
   }
 
+  // O(1) + potentially time to find elem in chain (depends on the number of collisions)
   public delete(key: K): boolean {
     //Get actual index of the key
     const actualIndex = this._getBucketIndex(key);
@@ -150,6 +153,7 @@ export class HashTable<K, V> {
     return hashCode % this._bucketSize;
   }
 
+  // O(n)
   private _rehash(): void {
     const temp = this._buckets;
 

@@ -1,0 +1,1 @@
+export const HEAP_OVERFLOW_ERROR = new Error('Heap overflow');
