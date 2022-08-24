@@ -1,28 +1,12 @@
-
-import { HEAP_OVERFLOW_ERROR } from "./Exceptions/HeapOverflowError";
-
 export type HeapOptions = { heapSize?: number };
 
 // TODO generic type Heap<T>
 export abstract class BaseHeap {
-
-  private readonly _heapArray: Array<number | null>;
-  private readonly _dynamicHeapSize: boolean;
-
-  private _size: number;
+  private readonly _heapArray: Array<number>;
 
   // O(1)
   public get size(): number {
-    return this._size;
-  }
-
-  // O(1)
-  public get isFull(): boolean {
-    if (this._dynamicHeapSize) {
-      return false;
-    }
-
-    return this._heapArray.length === this.size;
+    return this._heapArray.length;
   }
 
    // O(1)
@@ -30,30 +14,19 @@ export abstract class BaseHeap {
     return this.size === 0;
   }
 
-  constructor(options?: HeapOptions) {
-    this._size = 0;
-
-    // Static size of heap
-    if (options?.heapSize) {
-      this._heapArray = new Array<number | null>(options.heapSize).fill(null);
-      this._dynamicHeapSize = false;
-    } 
-    // Dynamic size of heap
-    else {
-      this._heapArray = new Array<number | null>();
-      this._dynamicHeapSize = true;
+  constructor(...values: number[]) {
+    this._heapArray = new Array<number>();
+    
+    if (values.length > 0) {
+      this._heapArray = values;
+      this.heapifyDown(0);  
     }
   }
 
   // O(log n)
   public insert(item: number): void {
-    if (this.isFull) {
-      throw HEAP_OVERFLOW_ERROR;
-    }
-
     this._heapArray[this.size] = item;
     this.heapifyUp(this.size);
-    this._size++;
   }
 
   // O(1)
@@ -76,21 +49,14 @@ export abstract class BaseHeap {
     }
 
     if (this.size === 1) {
-      const root = this._heapArray[0];
-
-      this._heapArray[0] = null;
-      this._size--;
-
-      return root;
+      return this._heapArray.pop()!;
     }
 
     // Store the minimum value,
     // and remove it from heap
     const root  = this._heapArray[0];
 
-    this._heapArray[0] = this._heapArray[this.size - 1]
-    this._heapArray[this.size - 1] = null;
-    this._size--;
+    this._heapArray[0] = this._heapArray.pop()!
     this.heapifyDown(0);
 
     return root;
@@ -126,7 +92,7 @@ export abstract class BaseHeap {
     }
 
     const joined = this._heapArray.reduce(
-      (str, value) => str += value !== null ? value + ',' : '',
+      (str, value) => str += value + ',',
       ''
     );
 
@@ -222,7 +188,7 @@ export abstract class BaseHeap {
    * A recursive method to heapify a subtree with the root at given index.
    * This method assumes that the subtrees are already heapified.
    * 
-   * @param index 
+   * @param index
    */
   protected heapifyDown(index: number): void {
     const left = this.getLeftChildIndex(index);

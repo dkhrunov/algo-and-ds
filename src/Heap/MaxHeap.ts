@@ -13,7 +13,6 @@ export class MaxHeap extends BaseHeap {
 const heap = new MaxHeap();
 
 heap.isEmpty //?
-heap.isFull //?
 
 heap.insert(11);
 heap.toString() //?
@@ -32,13 +31,11 @@ heap.toString() //?
 heap.findIndex(x => x === 11) //?
 
 heap.isEmpty //?
-heap.isFull //?
 
 heap.insert(15);
 heap.toString() //?
 
 heap.isEmpty //?
-heap.isFull //?
 
 heap.toString() //?
 heap.delete(2);
@@ -57,3 +54,6 @@ heap.toString() //?
 heap.isEmpty //?
 heap.poll(); //?
 heap.toString() //?
+
+const h = new MaxHeap(11, 3, 12, 10, 15)
+h.toString() //?

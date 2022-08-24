@@ -13,7 +13,6 @@ export class MinHeap extends BaseHeap {
 const heap = new MinHeap();
 
 heap.isEmpty //?
-heap.isFull //?
 
 heap.insert(11);
 heap.peek(); //?
@@ -32,12 +31,10 @@ heap.peek(); //?
 heap.findIndex(x => x === 11) //?
 
 heap.isEmpty //?
-heap.isFull //?
 
 heap.insert(15);
 
 heap.isEmpty //?
-heap.isFull //?
 
 heap.toString() //?
 heap.delete(2);
