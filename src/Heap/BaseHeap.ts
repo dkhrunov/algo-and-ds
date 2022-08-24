@@ -1,13 +1,10 @@
 
-import { Comparator } from "../utils/comparator/Comparator";
-import { IComparator } from "../utils/comparator/comparator.interface";
 import { HEAP_OVERFLOW_ERROR } from "./Exceptions/HeapOverflowError";
 
-export type HeapOptions = { heapSize?: number, comparator?: IComparator<number> };
+export type HeapOptions = { heapSize?: number };
 
 // TODO generic type Heap<T>
 export abstract class BaseHeap {
-  protected readonly comparator: IComparator<number>;
 
   private readonly _heapArray: Array<number | null>;
   private readonly _dynamicHeapSize: boolean;
@@ -34,7 +31,6 @@ export abstract class BaseHeap {
   }
 
   constructor(options?: HeapOptions) {
-    this.comparator = options?.comparator || new Comparator<number>();
     this._size = 0;
 
     // Static size of heap

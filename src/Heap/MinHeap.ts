@@ -6,7 +6,7 @@ export class MinHeap extends BaseHeap {
   }
 
   protected compareElements(first: number, second: number): boolean {
-    return this.comparator.lessThan(first, second);
+    return first < second;
   }
 }
 
