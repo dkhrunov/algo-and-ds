@@ -1,7 +1,8 @@
 export type HeapOptions = { heapSize?: number };
 
-// TODO generic type Heap<T>
 export abstract class BaseHeap {
+  protected abstract readonly EXTREMUM: number;
+
   private readonly _heapArray: Array<number>;
 
   // O(1)
@@ -14,19 +15,19 @@ export abstract class BaseHeap {
     return this.size === 0;
   }
 
-  constructor(...values: number[]) {
+  // if has values then O(n log n), else O(1)
+  constructor(values?: number[]) {
     this._heapArray = new Array<number>();
     
-    if (values.length > 0) {
-      this._heapArray = values;
-      this.heapifyDown(0);  
+    if (values && values.length > 0) {
+      values.forEach(v => this.insert(v));
     }
   }
 
   // O(log n)
   public insert(item: number): void {
     this._heapArray[this.size] = item;
-    this.heapifyUp(this.size);
+    this.heapifyUp(this.size - 1);
   }
 
   // O(1)
@@ -35,6 +36,10 @@ export abstract class BaseHeap {
    * or gets maximum element from MaxHeap.
    */
   public peek(): number | null {
+    if (this._heapArray.length === 0) {
+      return null;
+    }
+
     return this._heapArray[0];
   }
 
@@ -75,14 +80,31 @@ export abstract class BaseHeap {
    * so we call ```heapifyUp()``` and remove the root element by calling ```poll()```.
    */
   public delete(index: number): void {
-    this.toExtremum(index);
-    this.heapifyUp(index);
-    this.poll();
+    if (index <= this.size - 1) {
+      this.toExtremum(index);
+      this.heapifyUp(index);
+      this.poll();
+    }
   }
 
   // O(n)
   public findIndex(predicate: (item: number | null) => boolean): number {
     return this._heapArray.findIndex(predicate);
+  }
+
+  // O(n)
+  public findAllIndices(predicate: (item: number | null) => boolean): number[] {
+    const result = [];
+
+    for (let i = 0; i < this._heapArray.length; i++) {
+      const element = this._heapArray[i];
+
+      if (predicate(element)) {
+        result.push(i)
+      }
+    }
+
+    return result;
   }
 
   // O(n)
@@ -96,11 +118,7 @@ export abstract class BaseHeap {
       ''
     );
 
-    if (joined.slice(-1) === ',') {
-      return joined.slice(0, -1);
-    }
-
-    return joined;
+    return joined.slice(0, -1);
   }
 
   // O(log n)
@@ -109,7 +127,9 @@ export abstract class BaseHeap {
    * and brings a value to max infinite value for MaxHeap,
    * @param index 
    */
-  protected abstract toExtremum(index: number): void;
+  protected toExtremum(index: number): void {
+    this.setValue(index, this.EXTREMUM);
+  }
 
   // O(1)
   /**
@@ -146,9 +166,9 @@ export abstract class BaseHeap {
   }
 
   // O(1)
-  protected hasLeftChild(parentIndex: number): boolean {
-    return this.getLeftChildIndex(parentIndex) < this._heapArray.length;
-  }
+  // protected hasLeftChild(parentIndex: number): boolean {
+  //   return this.getLeftChildIndex(parentIndex) < this._heapArray.length;
+  // }
 
   // O(1)
   protected getRightChildIndex(parentIndex: number): number {
@@ -156,9 +176,9 @@ export abstract class BaseHeap {
   }
 
   // O(1)
-  protected hasRightChild(parentIndex: number): boolean {
-    return this.getRightChildIndex(parentIndex) < this._heapArray.length;
-  }
+  // protected hasRightChild(parentIndex: number): boolean {
+  //   return this.getRightChildIndex(parentIndex) < this._heapArray.length;
+  // }
 
   // O(1)
   protected parent(childIndex: number): number | null {
@@ -175,9 +195,9 @@ export abstract class BaseHeap {
 
   // O(log n)
   protected heapifyUp(index: number): void {
-    let i = index;
+    let i = index; //?
 
-    while (this.hasParent(i) && this.compareElements(Number(this._heapArray[i]), this.parent(i)!)) {
+    while (this.hasParent(i) && this.compareElements(this._heapArray[i], this.parent(i)!)) {
       this.swap(i, this.getParentIndex(i));
       i = this.getParentIndex(i);
     }
@@ -196,11 +216,11 @@ export abstract class BaseHeap {
 
     let extremumIndex = index;
 
-    if (left < this.size && this.compareElements(Number(this._heapArray[left]), Number(this._heapArray[extremumIndex]))) {
+    if (left < this.size && this.compareElements(this._heapArray[left], this._heapArray[extremumIndex])) {
       extremumIndex = left;
     }
 
-    if (right < this.size && this.compareElements(Number(this._heapArray[right]), Number(this._heapArray[extremumIndex]))) {
+    if (right < this.size && this.compareElements(this._heapArray[right], this._heapArray[extremumIndex])) {
       extremumIndex = right;
     }
 
