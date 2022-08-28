@@ -1,5 +1,5 @@
-import { IComparator } from "./comparator.interface";
-import { CompareFn } from "./compare-fn.type";
+import { IComparator } from "./Comparator.interface";
+import { CompareFn } from "./Compare-fn.type";
 
 export class Comparator<T> implements IComparator<T> {
   private _compareFn: CompareFn<T>;
