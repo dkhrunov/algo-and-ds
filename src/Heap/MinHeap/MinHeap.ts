@@ -1,4 +1,4 @@
-import { BaseHeap } from "./BaseHeap";
+import { BaseHeap } from "../BaseHeap";
 
 export class MinHeap extends BaseHeap {
   protected readonly EXTREMUM = Number.MIN_SAFE_INTEGER;

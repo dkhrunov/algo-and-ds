@@ -1,4 +1,4 @@
-import { MaxHeap } from "../../Heap/MaxHeap";
+import { MaxHeap } from "../../Heap/MaxHeap/MaxHeap";
 import { QUEUE_UNDERFLOW_ERROR } from "../Exceptions/QueueUnderflowError";
 
 export class PriorityQueueBasedOnMaxHeap {
