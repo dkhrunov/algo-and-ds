@@ -1,6 +1,6 @@
 export type HeapOptions = { heapSize?: number };
 
-export abstract class BaseHeap {
+export abstract class Heap {
   protected abstract readonly EXTREMUM: number;
 
   private readonly _heapArray: Array<number>;
@@ -49,7 +49,7 @@ export abstract class BaseHeap {
    * or remove maximum element from MaxHeap.
    */
   public poll(): number | null {
-    if (this.size <= 0) {
+    if (this.size == 0) {
       return null;
     }
 
@@ -57,7 +57,7 @@ export abstract class BaseHeap {
       return this._heapArray.pop()!;
     }
 
-    // Store the minimum value,
+    // Store the min/maxvalue,
     // and remove it from heap
     const root  = this._heapArray[0];
 
@@ -195,8 +195,8 @@ export abstract class BaseHeap {
 
   // O(log n)
   protected heapifyUp(index: number): void {
-    let i = index; //?
-
+    let i = index;
+    
     while (this.hasParent(i) && this.compareElements(this._heapArray[i], this.parent(i)!)) {
       this.swap(i, this.getParentIndex(i));
       i = this.getParentIndex(i);
