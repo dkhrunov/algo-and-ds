@@ -1,4 +1,6 @@
-export class HashTableNode<K, V> {
+import { HashFn, sumCharCodesHash } from "./HashFunctions";
+
+export class HashTableNode<K extends string | number, V> {
   protected _key: K;
   protected _value: V;
   protected _next: HashTableNode<K, V> | null;
@@ -32,7 +34,7 @@ export class HashTableNode<K, V> {
 
 // Used Separate Chaining to handle collision.
 // Implements Load Factor and Rehashing.
-export class HashTable<K, V> {
+export class HashTable<K extends string | number, V> {
   // No. of pairs stored
   private _size = 0;
   
@@ -46,18 +48,18 @@ export class HashTable<K, V> {
   // Default loadFactor
   private readonly DEFAULT_LOAD_FACTOR = 0.75;
 
-  private readonly _hashFn: (key: K) => number;
+  private readonly _hashFn: HashFn;
 
   // O(1)
   public get size(): number {
     return this._size;
   }
 
-  constructor(hashFn?: (key: K) => number) {
+  constructor(hashFn?: HashFn) {
     this._bucketSize = 5;
     this._buckets = new Array(this._bucketSize).fill(null);
 
-    this._hashFn = hashFn ?? defaultHashFn;
+    this._hashFn = hashFn ?? sumCharCodesHash;
   }
 
   // O(1) + potentially time to find dup in chain + potentially time to rehashing (depends of LoadFactor)
@@ -147,10 +149,7 @@ export class HashTable<K, V> {
   }
 
   private _getBucketIndex(key: K): number {
-    const hashCode = this._hashFn(key);
-
-    // array index = hashCode%numBuckets
-    return hashCode % this._bucketSize;
+    return this._hashFn(key, this._bucketSize);
   }
 
   // O(n)
@@ -181,8 +180,4 @@ export class HashTable<K, V> {
       }
     }
   }
-}
-
-function defaultHashFn<T extends { toString: () => string }>(key: T): number {
-  return key.toString().split('').reduce((acc, char) => acc += char.charCodeAt(0), 0)
 }
