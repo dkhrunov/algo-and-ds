@@ -91,10 +91,10 @@ export function midSquareHash(key: number, size: number): number {
 }
 
 /**
- * h(key) = key => string => chars => charCodes => midSquareHash(sum(charCodes))
+ * h(key) = midSquareHash(sum(charCode * i))
  */
  export function sumCharCodesHash<T extends { toString: () => string }>(key: T, size: number): number {
-  const sumCharCodes = key.toString().split('').reduce((acc, char) => acc += char.charCodeAt(0), 0);
+  const sumCharCodes = key.toString().split('').reduce((acc, char, i) => acc += char.charCodeAt(0) * i, 0); //?
 
   return midSquareHash(sumCharCodes, size);
 }
